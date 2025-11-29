@@ -16,27 +16,31 @@ const AddPlantForm = () => {
   const onSubmit = async (data) => {
     const { name, description, quantity, price, category, image } = data;
     const imageFile = image[0];
-   
-   try{
-     const imageUrl = await imageUpload(imageFile);
-    const plantData = {
-      image: imageUrl,
-      name,
-      description,
-      quantity: Number(quantity),
-      price: Number(price),
-      category,
-      seller: {
-        image: user?.photoURL,
-        name: user?.displayName,
-        email: user?.email,
-      },
-    };
- const {data} =await axios.post(`${import.meta.env.VITE_API_URL}/plants`,plantData)
     console.log(data);
-   }catch(err){
-    console.log(err);
-   }
+
+    try {
+      const imageUrl = await imageUpload(imageFile);
+      const plantData = {
+        image: imageUrl,
+        name,
+        description,
+        quantity: Number(quantity),
+        price: Number(price),
+        category,
+        seller: {
+          image: user?.photoURL,
+          name: user?.displayName,
+          email: user?.email,
+        },
+      };
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/plants`,
+        plantData
+      );
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
@@ -159,16 +163,37 @@ const AddPlantForm = () => {
                 )}
               </div>
             </div>
-            {/* Image */}
+            <div className=' p-4  w-full  m-auto rounded-lg grow'>
+              <div className='file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg'>
+                <div className='flex flex-col w-max mx-auto text-center'>
+                  <label>
+                    <input
+                      className='text-sm cursor-pointer w-36 hidden'
+                      type='file'
+                      name='image'
+                      id='image'
+                      accept='image/*'
+                      hidden
+                    />
+                    <div className='bg-lime-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-lime-500'>
+                      Upload
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Image
             <div className=" p-4  w-full  m-auto rounded-lg grow">
               <div className="file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">
                 <div className="flex flex-col w-max mx-auto text-center">
                   <label className="cursor-pointer bg-lime-500 text-white p-2 rounded inline-block">
                     Upload Image
                     <input
+                      name="image"
                       type="file"
+                      id="image"
                       accept="image/*"
-                      className="hidden"
                       {...register("image", { required: "Image is required" })}
                       onChange={(e) => console.log("Selected:", e.target.files)}
                     />
@@ -183,7 +208,7 @@ const AddPlantForm = () => {
                   </label>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Submit Button */}
             <button

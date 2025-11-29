@@ -13,9 +13,10 @@ import axios from "axios";
 export const imageUpload = async (imageData) => {
   const formData = new FormData();
   formData.append("image", imageData);
-
+console.log(import.meta.env.VITE_IMGBB_API_KEY)
+console.log(formData)
   const res = await axios.post(
-    "https://api.imgbb.com/1/upload",
+    `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
     formData,
     {
       params: {
