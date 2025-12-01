@@ -10,7 +10,7 @@ import { TbFidgetSpinner } from "react-icons/tb";
 
 const AddPlantForm = () => {
   const { user } = useAuth();
-  // useMutation hook useCase
+  // useMutation hook useCase (POST || PUT || PATCH ||DELETE)
   const {isPending, isError, mutateAsync, reset:mutationReset,} = useMutation({
     mutationFn: async (payload) =>
       await axios.post(`${import.meta.env.VITE_API_URL}/plants`, payload),
